@@ -1,0 +1,18 @@
+Vergadering 20-10-2015
+Richard = mysql verbinding opzetten. Schieten in game.
+Asror = Crystal oppakken, timer.
+Wout = chat in gameroom
+
+Game =
+Zwaartekracht werkt. Moet een cooldown opkomen zodat het niet te spammen is. Lobby, gameroom en game moet gekoppelt worden.
+
+
+
+Te doen =
+- Scoreboard na de game
+- Chat in game
+- Score ingame
+- Punten erbij als je npc kilt
+- Punten erbij als je crystal oppakt
+- Random spawn plekken voor items(met ammo)
+- Health bar
