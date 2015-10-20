@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="32" tileheight="32" nextobjectid="4">
+ <properties>
+  <property name="background" value="background.png"/>
+ </properties>
+ <tileset firstgid="1" name="grassy_tileset" tilewidth="32" tileheight="32" tilecount="800">
+  <image source="../img/tilesets/grassy_tileset.png" width="640" height="1280"/>
+  <tile id="0">
+   <properties>
+    <property name="tileType" value="air"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="801" name="grass_tile" tilewidth="32" tileheight="32" tilecount="1">
+  <image source="../img/tiles/grassy_tileset/grass_tile.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="802" name="space_tile-set_-Zp14DR" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="../img/tilesets/space_tile-set_-Zp14DR.png" width="256" height="256"/>
+ </tileset>
+ <objectgroup color="#ffa0a4" name="ObjectLayer">
+  <object id="1" name="Objective" type="Objective" x="224" y="415" width="32" height="32"/>
+  <object id="2" name="Objective" type="Objective" x="704" y="415" width="32" height="32"/>
+ </objectgroup>
+ <layer name="CollisionLayer" width="100" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1csU7EMAwt4l96sBywHLBcYWFkZLz//wwyXKTIimOnrmMn7fCEIirbieO82jl3fpymU8BTwHPA3OnYix3S8TngJeA14K3jsRc7pONLwHvAR8Bnx2MvdkjH14Al4Cvgu+OxFzukYy/n5sEfB394GEO/XO7/e5j6Qxrv1rasBfTTtWN/pHxobctaQF6fO/bHCPEBef18x08GLeyR6IH7Kp7DOa60XncMWvyxdl0l/oD7Kp7DOe60XncMWvzx28AfMH6x/CqXa1mvOwYpf2Dr92ccH+k5nMu1rNcdA8Yf3HWLcQDX8WbsD+t1XQuMPyDmBCcwppDKL+mXyhvhfTfHH0th/lJQ+0Eib4T4yPFHrJtEpP6SgtoPEnkjxEeOP2LdPSKdpxTUfpDIGyE+cvwR6+4RSyfzG8EfXP6wtpODEc4rLn9Y25kDzAc58VG6d9Coq1Dvl9TzsA4f/94AuOvV0j+c+CjdQ2jUVaDM2udjvMB7ndp9a+EPTnyU7q016ipQZu3zWDxTcmrvIzX8kerAnindW2vUVaDM2uexeKbk1N5Pavgj1cHdNxp2SPRh77swnik5tb9n0Zh7qoO7b7T9IeUPLJ4pObW/Z9GYe6qDu2+0/XHwRx1/aPvDij9aAL5zQxz84QsW/EHlk1b84QEW/EHlk1b84QEW/EHlkyPzR81e5fhsC/6g8sle+YM6hzk1sz3lH9S7zZZ252KUo2NP+Ye2P6hzmKODijGqD4FTe2/dd4Dxh7Y/qHOYo4OKMaoPgVN7b92H4DX/qOWPNX1snNp76741r/lHLX+s6WPj1N5b9631nH/0AIqjuPxhPY9RQHFUL/wxCiiO4vKHdX+Ltf6tQHEUlz+s+1us9bcClz+s+1us9bcClz+s+1us9bcCVi9pXRfQGnuxgzvG6u1evlewt+80YPV2L9+32dt3frB6u5fv2+ztOz/QP/+gfW6oIE4AAA==
+  </data>
+ </layer>
+</map>
