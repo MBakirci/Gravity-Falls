@@ -29,8 +29,8 @@ public class Objective extends LevelObject {
                     animation = new Animation(new Image[]{sp.getSprite(0, 2), sp.getSprite(0, 2)}, new int[]{1000, 1000});
                     animation.setAutoUpdate(false);
                     
-
             }
+            
 
         } catch (SlickException se) {
             System.out.println(se.getMessage());

@@ -2,15 +2,17 @@ package game.level;
 
 import java.util.ArrayList;
 
-import game.Game;
+import game.*;
 import game.character.Character;
 import game.character.Player;
 import game.enums.Gravity;
 import game.enums.Guns;
+import game.level.object.Crystal;
 import game.level.object.Objective;
 import game.level.tile.AirTile;
 import game.level.tile.SolidTile;
 import game.level.tile.Tile;
+import java.util.Timer;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -33,6 +35,10 @@ public class Level {
 
     private Gravity gravity;
 
+    private Timer gameTimer;
+
+    private GameTime gametimecount;
+
     public Level(String level, Player player) throws SlickException {
         map = new TiledMap("data/levels/" + level + ".tmx", "data/img");
         characters = new ArrayList<Character>();
@@ -43,13 +49,27 @@ public class Level {
         this.player = player;
         addCharacter(player);
 
-        Player p = new Player(200, 800);
+        Player p = new Player(200, 800, 2);
         addCharacter(p);
 
         loadTileMap();
         loadObjects();
+        loadCrystal();
 
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "background.png"));
+
+        gametimecount = new GameTime(600, characters);
+        gameTimer = new Timer();
+        gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
+    }
+
+    public String getGameTimeCount() {
+
+        return secondsToString(gametimecount.getCount());
+    }
+
+    private String secondsToString(int pTime) {
+        return String.format("%02d:%02d", pTime / 60, pTime % 60);
     }
 
     private void loadTileMap() {
@@ -94,12 +114,33 @@ public class Level {
 
         //the objects are loaded into an array, again retrieval by name is not supported
         for (int i = 0; i < objectAmount; i++) {
-            switch (map.getObjectName(0, i)) {
+
+            switch (map.getObjectType(0, i)) {
                 case "Objective":
                     if (i == 1) {
                         addLevelObject(new Objective(map.getObjectX(0, i), map.getObjectY(0, i), Guns.P90));
                     } else {
                         addLevelObject(new Objective(map.getObjectX(0, i), map.getObjectY(0, i), Guns.Handgun));
+                    }
+                    break;
+            }
+        }
+
+    }
+
+    private void loadCrystal() throws SlickException {
+
+        //we only have one layer defined, slick2d does not support getting an object layer by name but that does not matter to much for our game
+        int objectAmount = map.getObjectCount(1);
+
+        //the objects are loaded into an array, again retrieval by name is not supported
+        for (int i = 0; i < objectAmount; i++) {
+            switch (map.getObjectType(1, i)) {
+                case "Crystal":
+                    if (i == 1) {
+                        addLevelCrystal(new Crystal(map.getObjectX(1, i), map.getObjectY(1, i)));
+                    } else {
+                        addLevelCrystal(new Crystal(map.getObjectX(1, i), map.getObjectY(1, i)));
                     }
                     break;
             }
@@ -116,6 +157,10 @@ public class Level {
     }
 
     public void addLevelObject(LevelObject obj) {
+        levelObjects.add(obj);
+    }
+
+    public void addLevelCrystal(LevelObject obj) {
         levelObjects.add(obj);
     }
 
@@ -196,7 +241,8 @@ public class Level {
 
         //and then render the characters on top of the map
         for (Character c : characters) {
-            c.render(offset_x, offset_y, getCurrentGravity());
+            c.render(offset_x, offset_y, c.getGravity());
+
         }
 
     }

@@ -20,6 +20,10 @@ public abstract class Character extends LevelObject {
     protected float accelerationSpeed = 1;
     protected float maximumSpeed = 1;
     protected boolean isStartingJump = false;
+    protected boolean crystal;
+    protected int PlayerId;
+    protected Gravity gravity = Gravity.DOWN;
+    protected int points = 0;
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
@@ -82,6 +86,19 @@ public abstract class Character extends LevelObject {
         return moving;
     }
 
+    public int getPlayerId() {
+        return PlayerId;
+    }
+
+    public Gravity getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(Gravity gravity) {
+        this.gravity = gravity;
+
+    }
+
     public void setMoving(boolean b) {
         moving = b;
     }
@@ -98,6 +115,17 @@ public abstract class Character extends LevelObject {
             }
         }
     }
+
+    public void setCrystal(boolean crystal) {
+        this.crystal = crystal;
+    }
+
+    public boolean isCrystal() {
+        return crystal;
+    }
+    
+    
+    
 
     public void moveLeft(int delta, Gravity gravity) {
         //if we aren't already moving at maximum speed
@@ -137,12 +165,25 @@ public abstract class Character extends LevelObject {
     }
 
     public void render(float offset_x, float offset_y, Gravity gravity) {
+
         //draw a moving animation if we have one and we moved within the last 150 miliseconds
         if (movingAnimations != null && moving) {
             movingAnimations.get(facing).get(gravity).draw(x - 2 - offset_x, y - 2 - offset_y);
         } else {
             sprites.get(facing).get(gravity).draw(x - 2 - offset_x, y - 2 - offset_y);
         }
+    }
+
+    public void AddPoints() {
+        points = points + 5;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
 }
