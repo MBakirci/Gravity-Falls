@@ -6,13 +6,15 @@ import game.enums.Gravity;
 import game.level.Level;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import org.newdawn.slick.Input;
 
 public class MouseAndKeyBoardPlayerController extends PlayerController {
 
-    boolean cooldown = true;
+    boolean cooldown = false;
+    String lastPressedButton = "none";
 
     public MouseAndKeyBoardPlayerController(Player player) {
         super(player);
@@ -47,15 +49,39 @@ public class MouseAndKeyBoardPlayerController extends PlayerController {
             //down becomes left, left becomes up, up becomes right and right becomes down
             switch (player.getGravity()) {
                 case DOWN:
-                    player.setGravity(Gravity.UP);
+                    if (lastPressedButton.equals("none")) {
+                        player.setGravity(Gravity.UP);
+                        lastPressedButton = "pressed";
+                        resetLastPressedButton();
+                    }
+
                     break;
                 case UP:
-                    player.setGravity(Gravity.DOWN);
+                    if (lastPressedButton.equals("none")) {
+                        player.setGravity(Gravity.DOWN);
+                        lastPressedButton = "pressed";
+                        resetLastPressedButton();
+                    }
                     break;
             }
 
         }
 
+    }
+
+    public void resetLastPressedButton() {
+        if (lastPressedButton != "none") {
+            Timer timer = new Timer();
+            timer.schedule(new ResetLastButtonTimer(), 500);
+        }
+    }
+
+    class ResetLastButtonTimer extends TimerTask {
+
+        @Override
+        public void run() {
+            lastPressedButton = "none";
+        }
     }
 
     public long getTime() {
