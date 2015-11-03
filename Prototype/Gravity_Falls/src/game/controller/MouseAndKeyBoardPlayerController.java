@@ -72,7 +72,7 @@ public class MouseAndKeyBoardPlayerController extends PlayerController {
     public void resetLastPressedButton() {
         if (lastPressedButton != "none") {
             Timer timer = new Timer();
-            timer.schedule(new ResetLastButtonTimer(), 500);
+            timer.schedule(new ResetLastButtonTimer(), 1500);
         }
     }
 

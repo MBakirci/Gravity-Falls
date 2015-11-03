@@ -1,12 +1,15 @@
 package game.state;
 
 import game.Game;
+import game.bullet.Bullet;
 import game.character.Player;
 import game.controller.MouseAndKeyBoardPlayerController;
 import game.controller.PlayerController;
 import game.level.Level;
 import game.physics.Physics;
 import java.awt.Rectangle;
+import java.util.Iterator;
+import java.util.LinkedList;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.gui.TextField;
@@ -18,6 +21,7 @@ import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.state.BasicGameState;
@@ -35,6 +39,11 @@ public class LevelState extends BasicGameState {
     TrueTypeFont font;
     Input i;
     boolean typing = false;
+    
+    //BULLET: stuk moet apart voor character, doe ik wel later 
+    private LinkedList<Bullet> bullets;
+    protected int DELAY = 100;
+    protected int deelta = 0;
 
     public LevelState(String startingLevel) {
         this.startinglevel = startingLevel;
@@ -58,6 +67,9 @@ public class LevelState extends BasicGameState {
         chatlog.setText("AWSOME");
 
         textmessage = new TextField(container, font, 0, container.getHeight() - 170, 300, 25);
+        
+        //BULLET: stuk moet apart voor character, doe ik wel later 
+        bullets = new LinkedList<Bullet>();
 
         
 
@@ -70,6 +82,31 @@ public class LevelState extends BasicGameState {
 
         //we want to pass on the gravity here, and only here in case some levels decide to do things differently (like disabling the gravity device for example)
         physics.handlePhysics(level, delta, level.getCurrentGravity());
+        
+           //BULLET: stuk moet apart voor character, doe ik wel later 
+        deelta += delta;
+        Iterator<Bullet> i = bullets.iterator();
+        while(i.hasNext())
+        {
+            Bullet b = i.next();
+            
+            if( b.isActive())
+            {
+                b.update(delta);
+            }
+            else
+            {
+                i.remove();
+            }
+        }
+        // bullet moet nog op characters pos worden gezet en moet naar de muis toe worde geschoten , heb nu schietn op punt van muis 
+        if( container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && deelta > DELAY )
+		{
+                   
+			
+			bullets.add( new Bullet( new Vector2f(container.getInput().getMouseX(),container.getInput().getMouseY()), new Vector2f(250,10)));
+                        deelta = 0;
+		}
  
     }
 
@@ -78,13 +115,20 @@ public class LevelState extends BasicGameState {
         //render the level
         level.render();
 
-        g.drawString("Scraps collected: " + player.getPoints(), 20, 20);
+        g.drawString("Score: " + player.getPoints(), 20, 20);
         g.drawString("Current gravity: " + player.getGravity(), 20, 30);
         g.fillRect(container.getWidth() / 2 - 200, -1, 200, 60, new Image("data/img/ui/timerui.png"), 0, 0);
         g.drawString(level.getGameTimeCount(), container.getWidth() / 2 - 125, 20);
 
         chatlog.render(container, g);
         textmessage.render(container, g);
+        
+         //BULLET: stuk moet apart voor character, doe ik wel later 
+        for( Bullet b : bullets)
+        {
+            b.render(container, g);
+        }
+
 
     }
 
