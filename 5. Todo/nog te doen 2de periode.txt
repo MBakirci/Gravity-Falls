@@ -1,0 +1,28 @@
+Game
+- Schieten
+	- Character based
+	- Schiet naar muis toe
+	- Komt vanuit character
+	- Schade
+	- Schiet upgrades
+		- meer schade
+		- ammo
+		- andere animatie
+- Leven
+- Doodgaan
+- Punten bij doodgaan
+- rmi
+- leaderboards
+
+Portal
+- verbinden met lobby
+- database erachter
+- rmi??
+Lobby
+- verbinden met gameroom
+- rmi
+
+Gameroom
+- verbinden met lobby
+- verbinden met game
+- rmi
