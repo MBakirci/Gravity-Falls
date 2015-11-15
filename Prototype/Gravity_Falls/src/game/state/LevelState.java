@@ -104,7 +104,7 @@ public class LevelState extends BasicGameState {
 		{
                    
 			
-			bullets.add( new Bullet( new Vector2f(player.getX() -2 - level.getXOffset() + 50, player.getY() - 2 - level.getYOffset() + 35), new Vector2f(250,10)));
+			bullets.add( new Bullet( new Vector2f(player.getX() -2 - level.getXOffset() + 50, player.getY() - 2 - level.getYOffset() + 35), new Vector2f(250,10), new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY())));
                         deelta = 0;
                         System.out.println(container.getInput().getMouseX() + "  " + container.getInput().getMouseY());
                         System.out.println((player.getX() -2 - level.getXOffset() + 56) + "    " + (player.getY() - 2 - level.getYOffset() + 98));
