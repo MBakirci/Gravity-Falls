@@ -9,6 +9,17 @@ import java.sql.Time;
 import game.character.Character;
 import java.util.ArrayList;
 import java.util.TimerTask;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import org.newdawn.slick.GameContainer;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -18,24 +29,35 @@ public class GameTime extends TimerTask {
 
     private int count;
     private ArrayList<Character> characters;
+    private GameContainer container;
 
-    public GameTime(int count, ArrayList<Character> characters) {
+    public GameTime(int count, ArrayList<Character> characters, GameContainer container) {
         this.count = count;
         this.characters = characters;
+        this.container = container;
     }
 
     @Override
     public void run() {
-        count--;
-        if (count == 0) {
-            cancel();
-        }
-        for (Character c : characters) {
-            if(c.isCrystal())
-            {
-             c.AddPoints();
+
+        if (count <= 0) {
+            container.setPaused(true);
+            endofgame = true;
+        } else {
+            count--;
+            for (Character c : characters) {
+                if (c.isCrystal()) {
+                    c.AddPoints(5);
+                }
             }
         }
+
+    }
+
+    boolean endofgame = false;
+
+    public boolean isEndofgame() {
+        return endofgame;
     }
 
     public int getCount() {

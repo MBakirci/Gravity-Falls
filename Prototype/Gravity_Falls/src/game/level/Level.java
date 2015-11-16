@@ -35,9 +35,6 @@ public class Level {
 
     private Gravity gravity;
 
-    private Timer gameTimer;
-
-    private GameTime gametimecount;
 
     public Level(String level, Player player) throws SlickException {
         map = new TiledMap("data/levels/" + level + ".tmx", "data/img");
@@ -57,19 +54,6 @@ public class Level {
         loadCrystal();
 
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "background.png"));
-
-        gametimecount = new GameTime(600, characters);
-        gameTimer = new Timer();
-        gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
-    }
-
-    public String getGameTimeCount() {
-
-        return secondsToString(gametimecount.getCount());
-    }
-
-    private String secondsToString(int pTime) {
-        return String.format("%02d:%02d", pTime / 60, pTime % 60);
     }
 
     private void loadTileMap() {

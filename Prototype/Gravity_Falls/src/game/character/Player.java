@@ -13,6 +13,10 @@ public class Player extends Character {
 
     private Gravity gravity;
     private int playerid;
+    private double health = 100;
+    private double damage = 10;
+    private int kills;
+    private double damagedone;
 
     public Player(float x, float y, int playerid) throws SlickException {
         super(x, y);
@@ -44,6 +48,54 @@ public class Player extends Character {
 
     public void updateBoundingShape() {
         boundingShape.updatePosition(x + 3, y);
+    }
+
+    @Override
+    public int getKills() {
+        return kills;
+    }
+
+    @Override
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    @Override
+    public void addKills() {
+        this.kills++;
+    }
+
+    @Override
+    public double getDamagedone() {
+        return damagedone;
+    }
+    
+    @Override
+    public void addDamagedone(double damage) {
+        this.damagedone = this.damagedone + damage;
+    }
+
+    @Override
+    public double getHealth() {
+        return health;
+    }
+
+    @Override
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+
+    @Override
+    public void takedamage(double damage) {
+        this.health = this.health - damage;
     }
 
     public void setCrystal(boolean crystal) {
@@ -79,11 +131,5 @@ public class Player extends Character {
     public void setGravity(Gravity gravity) {
         this.gravity = gravity;
     }
-    
 
-    
-    
-    
-    
-    
 }
