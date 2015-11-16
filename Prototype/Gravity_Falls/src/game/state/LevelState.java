@@ -138,9 +138,7 @@ public class LevelState extends BasicGameState {
             g.drawString("hp: " + c.getHealth(), c.getX() - 2 - level.getXOffset(), c.getY() - 2 - level.getYOffset() - 20);
         }
 
-        //BULLET: stuk moet apart voor character, doe ik wel later 
-        for (Bullet b : bullets) {
-        g.drawString(level.getGameTimeCount(), container.getWidth() / 2 - 125, 20);
+        g.drawString(getGameTimeCount(), container.getWidth() / 2 - 125, 20);
         g.fillRect((Game.WINDOW_WIDTH/7)*5, 0, 300, Game.WINDOW_HEIGTH);
         chatlog.render(container, g);
         textmessage.render(container, g);
