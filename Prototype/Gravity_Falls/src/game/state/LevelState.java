@@ -9,6 +9,7 @@ import game.controller.PlayerController;
 import game.level.Level;
 import game.physics.Physics;
 import java.awt.Rectangle;
+import java.awt.SystemColor;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -67,15 +68,20 @@ public class LevelState extends BasicGameState {
         physics = new Physics(player);
 
         font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF, java.awt.Font.BOLD, 13), false);
-        chatlog = new TextField(container, font, 0, container.getHeight() - 300, 300, 128);
+        chatlog = new TextField(container, font, 910, container.getHeight() - 721, 273, container.getHeight() - 250);
         chatlog.setText("AWSOME");
 
+<<<<<<< HEAD
         gametimecount = new GameTime(50, level.getCharacters(), container);
         gameTimer = new Timer();
         gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
 
         textmessage = new TextField(container, font, 0, container.getHeight() - 170, 300, 25);
 
+=======
+        textmessage = new TextField(container, font, 910, container.getHeight() - 250, 273, 105);
+        
+>>>>>>> origin/master
         //BULLET: stuk moet apart voor character, doe ik wel later 
         bullets = new LinkedList<Bullet>();
 
@@ -125,10 +131,11 @@ public class LevelState extends BasicGameState {
         g.scale(Game.SCALE, Game.SCALE);
         //render the level
         level.render();
-
+        
         g.drawString("Score: " + player.getPoints(), 20, 20);
         g.drawString("Current gravity: " + player.getGravity(), 20, 30);
         g.fillRect(container.getWidth() / 2 - 200, -1, 200, 60, new Image("data/img/ui/timerui.png"), 0, 0);
+<<<<<<< HEAD
         g.drawString(getGameTimeCount(), container.getWidth() / 2 - 125, 20);
 
         for (game.character.Character c : level.getCharacters()) {
@@ -137,6 +144,15 @@ public class LevelState extends BasicGameState {
 
         //BULLET: stuk moet apart voor character, doe ik wel later 
         for (Bullet b : bullets) {
+=======
+        g.drawString(level.getGameTimeCount(), container.getWidth() / 2 - 125, 20);
+        g.fillRect((Game.WINDOW_WIDTH/7)*5, 0, 300, Game.WINDOW_HEIGTH);
+        chatlog.render(container, g);
+        textmessage.render(container, g);
+         //BULLET: stuk moet apart voor character, doe ik wel later 
+        for( Bullet b : bullets)
+        {
+>>>>>>> origin/master
             b.render(container, g);
         }
 
@@ -186,13 +202,6 @@ public class LevelState extends BasicGameState {
         }
         textmessage.setText(message);
 
-    }
-
-    public String backSpace(String str) {
-        if (str.length() > 0 && str.charAt(str.length() - 1) == 'x') {
-            str = str.substring(0, str.length() - 1);
-        }
-        return str;
     }
 
     public int getID() {
