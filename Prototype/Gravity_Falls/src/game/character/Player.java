@@ -13,7 +13,8 @@ public class Player extends Character {
 
     private Gravity gravity;
     private int playerid;
-
+    
+   
     public Player(float x, float y, int playerid) throws SlickException {
         super(x, y);
         this.playerid = playerid;
@@ -45,6 +46,10 @@ public class Player extends Character {
     public void updateBoundingShape() {
         boundingShape.updatePosition(x + 3, y);
     }
+
+
+   
+
 
     public void setCrystal(boolean crystal) {
         this.crystal = crystal;
@@ -79,11 +84,5 @@ public class Player extends Character {
     public void setGravity(Gravity gravity) {
         this.gravity = gravity;
     }
-    
 
-    
-    
-    
-    
-    
 }

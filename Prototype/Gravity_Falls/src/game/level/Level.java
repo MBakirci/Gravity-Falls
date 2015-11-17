@@ -12,6 +12,7 @@ import game.level.object.Objective;
 import game.level.tile.AirTile;
 import game.level.tile.SolidTile;
 import game.level.tile.Tile;
+import game.GameTime;
 import java.util.Timer;
 
 import org.newdawn.slick.Image;
@@ -34,10 +35,10 @@ public class Level {
     private Image background;
 
     private Gravity gravity;
-
+    
     private Timer gameTimer;
-
     private GameTime gametimecount;
+
 
     public Level(String level, Player player) throws SlickException {
         map = new TiledMap("data/levels/" + level + ".tmx", "data/img");
@@ -60,7 +61,7 @@ public class Level {
 
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "background.png"));
 
-        gametimecount = new GameTime(4, characters);
+        gametimecount = new GameTime(600, characters);
         gameTimer = new Timer();
         gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
     }
@@ -72,8 +73,9 @@ public class Level {
 
     private String secondsToString(int pTime) {
         return String.format("%02d:%02d", pTime / 60, pTime % 60);
-    }
 
+    }
+    
     private void loadTileMap() {
         //create an array to hold all the tiles in the map
         tiles = new Tile[map.getWidth()][map.getHeight()];

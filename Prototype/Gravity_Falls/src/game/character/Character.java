@@ -25,7 +25,11 @@ public abstract class Character extends LevelObject {
     protected int PlayerId;
     protected Gravity gravity = Gravity.DOWN;
     protected int points = 0;
+
     private int health;
+
+    
+
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
@@ -105,6 +109,9 @@ public abstract class Character extends LevelObject {
         return moving;
     }
 
+
+    
+
     public int getPlayerId() {
         return PlayerId;
     }
@@ -135,6 +142,7 @@ public abstract class Character extends LevelObject {
         }
     }
 
+ 
     public void setCrystal(boolean crystal) {
         this.crystal = crystal;
     }
@@ -142,9 +150,6 @@ public abstract class Character extends LevelObject {
     public boolean isCrystal() {
         return crystal;
     }
-    
-    
-    
 
     public void moveLeft(int delta, Gravity gravity) {
         //if we aren't already moving at maximum speed
@@ -193,8 +198,8 @@ public abstract class Character extends LevelObject {
         }
     }
 
-    public void AddPoints() {
-        points = points + 5;
+    public void AddPoints(int point) {
+        points = points + point;
     }
 
     public int getPoints() {
