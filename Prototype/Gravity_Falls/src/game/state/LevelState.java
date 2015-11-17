@@ -226,6 +226,7 @@ public class LevelState extends BasicGameState {
                                p.dmgCalc();
 				if(p.getHealth() <= 0)
                                 { 
+                                    player.AddPoints(10);
                                     level.removeCharacter(p);
                                     t.schedule(new RespawnTimer(),2000);
                                 }
