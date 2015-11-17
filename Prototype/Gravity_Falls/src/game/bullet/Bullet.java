@@ -20,8 +20,10 @@ public class Bullet {
     private Vector2f speed;
     private int lived = 0;
     private boolean active = true;
-    private static int MAX_LIFETIME = 1000;
+    private static int MAX_LIFETIME = 500;
     private Vector2f mousel;
+    private int damage = 20;
+    private int radius = 100;
 
     public Bullet(Vector2f pos, Vector2f speed, Vector2f mousel) {
         this.pos = pos;
@@ -71,9 +73,35 @@ public class Bullet {
             g.fillOval(pos.getX() - 20, pos.getY() - 20, 5, 5);
         }
     }
+    
+    // collision
+    /*   public boolean collideWith ( Vector2f otherPos , int otherRadiusSqared )
+	{
+		int dis = (int) otherPos.copy().sub(pos).lengthSquared();
+		
+		if( dis < ( otherRadiusSqared + radius ) )
+		{
+			return true;
+		}
+		return false;
+	}*/
 
     public boolean isActive() {
         return active;
+    }
+    
+    public int getDamage()
+    {
+        return damage;
+    }
+    public void setActive( boolean active )
+	{
+		this.active = active;
+	}
+    
+    public int getRadius()
+    {
+        return radius;
     }
 
 }

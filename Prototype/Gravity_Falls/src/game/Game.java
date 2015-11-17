@@ -21,6 +21,8 @@ public class Game extends StateBasedGame {
 
     public static int SCRAPS_COLLECTED = 0;
 
+    
+
     public Game() {
         super(GAME_NAME);
     }

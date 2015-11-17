@@ -1,5 +1,6 @@
 package game.character;
 
+import game.bullet.Bullet;
 import java.util.HashMap;
 
 import game.enums.Facing;
@@ -24,12 +25,13 @@ public abstract class Character extends LevelObject {
     protected int PlayerId;
     protected Gravity gravity = Gravity.DOWN;
     protected int points = 0;
+    private int health;
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
         //in case we forget to set the image, we don't want the game to crash, but it still has to be obvious that something was forgotten
         setSprite(new Image("data/img/placeholder_sprite.png"));
-
+        health = 100;
         //default direction will be right
         facing = Facing.RIGHT;
     }
@@ -82,6 +84,23 @@ public abstract class Character extends LevelObject {
         sprites.get(Facing.LEFT).put(Gravity.DOWN, i.getFlippedCopy(true, false));
     }
 
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    public int dmgCalc()
+    {
+        Bullet b = new Bullet();
+        return   health-=b.getDamage();
+    }
+    
+    public int resetHealth()
+    {
+        return health = 100;
+    }
+    
+    
     public boolean isMoving() {
         return moving;
     }

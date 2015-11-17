@@ -49,8 +49,10 @@ public class Level {
         this.player = player;
         addCharacter(player);
 
-        Player p = new Player(200, 800, 2);
-        addCharacter(p);
+        ///Player p = new Player(200, 800, 2);
+      
+        //addCharacter(p);
+        
 
         loadTileMap();
         loadObjects();
@@ -58,7 +60,7 @@ public class Level {
 
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "background.png"));
 
-        gametimecount = new GameTime(600, characters);
+        gametimecount = new GameTime(4, characters);
         gameTimer = new Timer();
         gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
     }
@@ -150,6 +152,11 @@ public class Level {
 
     public void addCharacter(Character c) {
         characters.add(c);
+    }
+    
+    public void removeCharacter(Character c)
+    {
+        characters.remove(c);
     }
 
     public ArrayList<Character> getCharacters() {
