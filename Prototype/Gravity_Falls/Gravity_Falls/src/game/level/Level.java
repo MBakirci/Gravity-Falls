@@ -12,7 +12,6 @@ import game.level.object.Objective;
 import game.level.tile.AirTile;
 import game.level.tile.SolidTile;
 import game.level.tile.Tile;
-import game.GameTime;
 import java.util.Timer;
 
 import org.newdawn.slick.Image;
@@ -35,9 +34,7 @@ public class Level {
     private Image background;
 
     private Gravity gravity;
-    
-    private Timer gameTimer;
-    private GameTime gametimecount;
+
 
 
     public Level(String level, Player player) throws SlickException {
@@ -50,10 +47,8 @@ public class Level {
         this.player = player;
         addCharacter(player);
 
-        ///Player p = new Player(200, 800, 2);
-      
-        //addCharacter(p);
-        
+        Player p = new Player(250, 800, 2);
+        addCharacter(p);
 
         loadTileMap();
         loadObjects();
@@ -61,21 +56,10 @@ public class Level {
 
         background = new Image("data/img/backgrounds/" + map.getMapProperty("background", "background.png"));
 
-        gametimecount = new GameTime(600, characters);
-        gameTimer = new Timer();
-        gameTimer.scheduleAtFixedRate(gametimecount, 0, 1000);
     }
 
-    public String getGameTimeCount() {
 
-        return secondsToString(gametimecount.getCount());
-    }
 
-    private String secondsToString(int pTime) {
-        return String.format("%02d:%02d", pTime / 60, pTime % 60);
-
-    }
-    
     private void loadTileMap() {
         //create an array to hold all the tiles in the map
         tiles = new Tile[map.getWidth()][map.getHeight()];
@@ -154,11 +138,6 @@ public class Level {
 
     public void addCharacter(Character c) {
         characters.add(c);
-    }
-    
-    public void removeCharacter(Character c)
-    {
-        characters.remove(c);
     }
 
     public ArrayList<Character> getCharacters() {

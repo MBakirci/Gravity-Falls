@@ -1,6 +1,5 @@
 package game.character;
 
-import game.bullet.Bullet;
 import java.util.HashMap;
 
 import game.enums.Facing;
@@ -25,17 +24,15 @@ public abstract class Character extends LevelObject {
     protected int PlayerId;
     protected Gravity gravity = Gravity.DOWN;
     protected int points = 0;
-
-    private int health;
-
-    
-
+    protected double health = 100;
+    protected int kills;
+    protected double damagedone = 0;
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
         //in case we forget to set the image, we don't want the game to crash, but it still has to be obvious that something was forgotten
         setSprite(new Image("data/img/placeholder_sprite.png"));
-        health = 100;
+
         //default direction will be right
         facing = Facing.RIGHT;
     }
@@ -88,28 +85,30 @@ public abstract class Character extends LevelObject {
         sprites.get(Facing.LEFT).put(Gravity.DOWN, i.getFlippedCopy(true, false));
     }
 
-    public int getHealth()
-    {
-        return health;
-    }
-    
-    public int dmgCalc()
-    {
-        Bullet b = new Bullet();
-        return   health-=b.getDamage();
-    }
-    
-    public int resetHealth()
-    {
-        return health = 100;
-    }
-    
-    
     public boolean isMoving() {
         return moving;
     }
 
+    public int getKills() {
+        return kills;
+    }
 
+    public void addKills() {
+        this.kills++;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public double getDamagedone() {
+        return damagedone;
+    }
+
+    public void addDamagedone(double damage) {
+        this.damagedone = this.damagedone + damage;
+    }
+    
     
 
     public int getPlayerId() {
@@ -142,7 +141,18 @@ public abstract class Character extends LevelObject {
         }
     }
 
- 
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public void takedamage(double damage) {
+        this.health = this.health - damage;
+    }
+
     public void setCrystal(boolean crystal) {
         this.crystal = crystal;
     }
