@@ -57,7 +57,7 @@ public class Physics {
                         //in case its an objective and its collides
                         if (obj.getBoundingShape().checkCollision(c.getBoundingShape())) {
                             //we have to remove the object from the level, and add something to the score
-                            Game.SCRAPS_COLLECTED++;
+                            player.setDamage(30);
                             removeQueue.add(obj);
                         }
                     }

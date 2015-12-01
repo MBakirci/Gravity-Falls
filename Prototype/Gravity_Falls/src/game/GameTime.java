@@ -29,28 +29,28 @@ public class GameTime extends TimerTask {
 
     private int count;
     private ArrayList<Character> characters;
-    
+    private GameContainer container;
 
-    public GameTime(int count, ArrayList<Character> characters) {
+    public GameTime(int count, ArrayList<Character> characters, GameContainer container) {
         this.count = count;
         this.characters = characters;
-      
+        this.container = container;
     }
 
     @Override
     public void run() {
 
-       count--;
-        if (count == 0) {
-            cancel();
-        }
-        for (Character c : characters) {
-            if(c.isCrystal())
-            {
-             c.AddPoints(5);
+        if (count <= 0) {
+            container.setPaused(true);
+            endofgame = true;
+        } else {
+            count--;
+            for (Character c : characters) {
+                if (c.isCrystal()) {
+                    c.AddPoints(5);
+                }
             }
         }
-        
 
     }
 
