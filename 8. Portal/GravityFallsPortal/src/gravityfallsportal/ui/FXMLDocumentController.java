@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import gravityfallsportal.socket.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,7 +44,8 @@ public class FXMLDocumentController implements Initializable {
 
     public SocketClient client;
     public Thread clientThread;
-    public String username = "Asror";
+    private User user;
+    public String username;
     private boolean connected = false;
 
     @FXML
@@ -61,24 +63,40 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    public void setUser(User user) {
+        this.user = user;
+        ConnectWithServer();
+    }
+
+    public void setConnected() {
+        this.connected = true;
+    }
+
+    public void ConnectWithServer() {
+        if (connected) {
+            try {
+                username = this.user.getUserName();
+                client = new SocketClient(this);
+
+                clientThread = new Thread(client);
+                clientThread.start();
+                connected = true;
+            } catch (IOException ex) {
+
+                tachatlog.appendText("Connection Failed !");
+            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            client = new SocketClient(this);
-
-            clientThread = new Thread(client);
-            clientThread.start();
-            connected = true;
-        } catch (IOException ex) {
-
-            tachatlog.appendText("Connection Failed !");
-        }
+        //TODO
     }
 
     @FXML
     private void handleimvGame1(MouseEvent event) {
         try {
-            Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\"");
+            Process p = Runtime.getRuntime().exec("gnome-calculator");
             p.waitFor();
             System.out.println("Google Chrome launched!");
         } catch (Exception e) {

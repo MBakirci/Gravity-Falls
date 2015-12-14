@@ -15,7 +15,8 @@
       <TextArea fx:id="tachatlog" layoutX="16.0" layoutY="257.0" prefHeight="211.0" prefWidth="470.0" />
       <ImageView fx:id="imvGame1" fitHeight="67.0" fitWidth="75.0" layoutX="16.0" layoutY="14.0" onMouseClicked="#handleimvGame1" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../Program%20Files%20(x86)/Google/Chrome/Application/45.0.2454.101/VisualElements/smalllogo.png" />
+            <Image url="@icon.png" />
          </image></ImageView>
+      <Label layoutX="9.0" layoutY="81.0" text="Gravity Falls" />
     </children>
 </AnchorPane>

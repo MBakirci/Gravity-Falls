@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gravityfallsportal.socket;
+package gravityfallsportal.Serversocket;
 
 import java.awt.Color;
 import java.io.File;
@@ -28,7 +28,6 @@ public class Server {
      */
     public static void main(String[] args) {  
         Thread the1 = new Thread(new SocketServer());
-
     }
 
 

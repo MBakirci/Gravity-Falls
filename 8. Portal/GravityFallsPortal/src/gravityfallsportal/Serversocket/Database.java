@@ -1,4 +1,4 @@
-package gravityfallsportal.socket;
+package gravityfallsportal.Serversocket;
 
 import java.io.*;
 import javax.xml.parsers.DocumentBuilder;

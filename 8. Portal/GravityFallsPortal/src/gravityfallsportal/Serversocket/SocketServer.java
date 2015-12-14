@@ -1,6 +1,6 @@
-package gravityfallsportal.socket;
+package gravityfallsportal.Serversocket;
 
-import gravityfallsportal.socket.Database;
+import gravityfallsportal.Serversocket.Database;
 import gravityfallsportal.socket.Message;
 import java.io.*;
 import java.net.*;
