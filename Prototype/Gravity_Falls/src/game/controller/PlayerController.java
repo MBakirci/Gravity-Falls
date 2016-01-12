@@ -15,6 +15,6 @@ public abstract class PlayerController {
         this.player = player;
     }
     
-    public abstract void handleInput(Input i, int delta, ArrayList<Character> characters, int Spectator);
+    public abstract void handleInput(Input i, int delta, ArrayList<Character> characters);
 
 }

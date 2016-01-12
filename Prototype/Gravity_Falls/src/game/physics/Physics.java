@@ -8,7 +8,6 @@ import game.level.LevelObject;
 import game.level.tile.Tile;
 import game.character.Character;
 import game.character.Player;
-import game.client.PortalController;
 import game.enums.Gravity;
 import game.level.object.Crystal;
 import game.level.object.Objective;
@@ -17,7 +16,6 @@ public class Physics {
 
     private final float gravitational_force = 0.0015f;
     private Player player;
-    private PortalController control;
 
     public Physics(Player player) {
         this.player = player;
@@ -29,7 +27,15 @@ public class Physics {
 
     private void handleCharacters(Level level, int delta, Gravity gravity) {
         for (Character c : level.getCharacters()) {
-            if (c.getPlayerId() == player.getPlayerId()) {
+            if (c.getPlayerId() == 1) {
+                //and now decelerate the character if he is not moving anymore
+                if (!c.isMoving()) {
+                    c.decelerate(delta, c.getGravity());
+                }
+
+                handleGameObject(c, level, delta, c.getGravity());
+            }
+            if (c.getPlayerId() == 2) {
                 //and now decelerate the character if he is not moving anymore
                 if (!c.isMoving()) {
                     c.decelerate(delta, c.getGravity());
@@ -37,36 +43,36 @@ public class Physics {
 
                 handleGameObject(c, level, delta, c.getGravity());
 
-                //special cases for the player
-                if (c instanceof Player) {
+            }
 
-                    ArrayList<LevelObject> removeQueue = new ArrayList<LevelObject>();
+            //special cases for the player
+            if (c instanceof Player) {
 
-                    //we have to check if he collides with anything special, such as objectives for example
-                    for (LevelObject obj : level.getLevelObjects()) {
+                ArrayList<LevelObject> removeQueue = new ArrayList<LevelObject>();
 
-                        if (obj instanceof Objective) {
-                            //in case its an objective and its collides
-                            if (obj.getBoundingShape().checkCollision(c.getBoundingShape())) {
-                                //we have to remove the object from the level, and add something to the score
-                                player.setDamage(30);
-                                removeQueue.add(obj);
-                            }
+                //we have to check if he collides with anything special, such as objectives for example
+                for (LevelObject obj : level.getLevelObjects()) {
+
+                    if (obj instanceof Objective) {
+                        //in case its an objective and its collides
+                        if (obj.getBoundingShape().checkCollision(c.getBoundingShape())) {
+                            //we have to remove the object from the level, and add something to the score
+                            player.setDamage(30);
+                            removeQueue.add(obj);
                         }
-
-                        if (obj instanceof Crystal) {
-
-                            if (obj.getBoundingShape().checkCollision(c.getBoundingShape())) {
-                                player.setCrystal(true);
-                                removeQueue.add(obj);
-                            }
-                        }
-
                     }
 
-                    level.removeObjects(removeQueue);
+                    if (obj instanceof Crystal) {
+
+                        if (obj.getBoundingShape().checkCollision(c.getBoundingShape())) {
+                            player.setCrystal(true);
+                            removeQueue.add(obj);
+                        }
+                    }
 
                 }
+
+                level.removeObjects(removeQueue);
             }
 
         }

@@ -1,9 +1,7 @@
 package game.character;
 
-import game.enums.Facing;
 import game.enums.Gravity;
 import game.physics.AABoundingRect;
-import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,17 +11,16 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Player extends Character {
 
+    private Gravity gravity;
     private int playerid;
-    private String username;
+    private double health = 100;
+    private double damage = 10;
+    private int kills;
+    private double damagedone;
 
-    public Player() throws SlickException {
-        super(0, 0);
-    }
-
-    public Player(float x, float y, int playerid, String Username) throws SlickException {
+    public Player(float x, float y, int playerid) throws SlickException {
         super(x, y);
         this.playerid = playerid;
-        this.username = Username;
         gravity = Gravity.DOWN;
 
         try {
@@ -48,20 +45,9 @@ public class Player extends Character {
         setSprite(sp.getSprite(1, 0));
         setMovingAnimation(new Image[]{sp.getSprite(1, 0), sp.getSprite(0, 0), sp.getSprite(2, 0)}, 400);
     }
-    
-    
-    @Override
-    public String getUsername(){
-        return username;
-    }
-    
+
     public void updateBoundingShape() {
         boundingShape.updatePosition(x + 3, y);
-    }
-
-    @Override
-    public Facing getFacing() {
-        return facing;
     }
 
     @Override
@@ -83,7 +69,7 @@ public class Player extends Character {
     public double getDamagedone() {
         return damagedone;
     }
-
+    
     @Override
     public void addDamagedone(double damage) {
         this.damagedone = this.damagedone + damage;
@@ -99,12 +85,10 @@ public class Player extends Character {
         this.health = health;
     }
 
-    @Override
     public double getDamage() {
         return damage;
     }
 
-    @Override
     public void setDamage(double damage) {
         this.damage = damage;
     }
@@ -114,12 +98,7 @@ public class Player extends Character {
         this.health = this.health - damage;
     }
 
-    @Override
     public void setCrystal(boolean crystal) {
-        this.crystal = crystal;
-    }
-
-    public void updateCrystal(boolean crystal) {
         this.crystal = crystal;
         if (crystal) {
             try {
@@ -135,11 +114,7 @@ public class Player extends Character {
             }
 
         }
-    }
 
-    @Override
-    public boolean getCrystal() {
-        return crystal;
     }
 
     @Override

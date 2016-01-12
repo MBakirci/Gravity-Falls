@@ -3,14 +3,13 @@ package game.level;
 import game.enums.Gravity;
 import game.physics.AABoundingRect;
 import game.physics.BoundingShape;
-import java.io.Serializable;
 
-public abstract class LevelObject implements Serializable {
+public abstract class LevelObject {
 
     protected float x;
     protected float y;
     protected BoundingShape boundingShape;
-    protected String uniqid;
+
     protected float x_velocity = 0;
     protected float y_velocity = 0;
     protected float maximumFallSpeed = 1;
@@ -24,14 +23,8 @@ public abstract class LevelObject implements Serializable {
 
         //default bounding shape is a 32 by 32 box
         boundingShape = new AABoundingRect(x, y, 32, 32);
-        uniqid = x + "-" + y;
     }
 
-    public String getUniqid() {
-        return uniqid;
-    }
-
-    
     public void applyGravity(float force, Gravity gravity) {
         switch (gravity) {
             case DOWN:

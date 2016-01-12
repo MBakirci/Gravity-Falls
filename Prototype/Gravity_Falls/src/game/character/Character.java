@@ -5,13 +5,10 @@ import java.util.HashMap;
 import game.enums.Facing;
 import game.enums.Gravity;
 import game.level.LevelObject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 public abstract class Character extends LevelObject {
 
@@ -25,13 +22,11 @@ public abstract class Character extends LevelObject {
     protected boolean isStartingJump = false;
     protected boolean crystal;
     protected int PlayerId;
-    protected String Username;
     protected Gravity gravity = Gravity.DOWN;
-    protected int points;
-    protected double health;
+    protected int points = 0;
+    protected double health = 100;
     protected int kills;
-    protected double damagedone;
-    protected double damage;
+    protected double damagedone = 0;
 
     public Character(float x, float y) throws SlickException {
         super(x, y);
@@ -40,15 +35,11 @@ public abstract class Character extends LevelObject {
 
         //default direction will be right
         facing = Facing.RIGHT;
-        health = 100;
-        points = 0;
-        damage = 10;
-        damagedone = 0;
     }
 
     //this method has become a bit of monster :(
     protected void setMovingAnimation(Image[] images, int frameDuration) throws SlickException {
-               movingAnimations = new HashMap<Facing, HashMap<Gravity, Animation>>();
+        movingAnimations = new HashMap<Facing, HashMap<Gravity, Animation>>();
         movingAnimations.put(Facing.LEFT, new HashMap<Gravity, Animation>());
         movingAnimations.put(Facing.RIGHT, new HashMap<Gravity, Animation>());
 
@@ -61,6 +52,7 @@ public abstract class Character extends LevelObject {
         for (Image i : images) {
             animation.addFrame(i.getFlippedCopy(false, true), frameDuration);
         }
+        System.out.println(animation);
         movingAnimations.get(Facing.RIGHT).put(Gravity.UP, animation);
 
         //and for the left facing ones...
@@ -68,6 +60,7 @@ public abstract class Character extends LevelObject {
         for (Image i : images) {
             animation.addFrame(i.getFlippedCopy(true, false), frameDuration);
         }
+        System.out.println(animation);
         movingAnimations.get(Facing.LEFT).put(Gravity.DOWN, animation);
 
         animation = new Animation();
@@ -75,6 +68,7 @@ public abstract class Character extends LevelObject {
             animation.addFrame(i.getFlippedCopy(true, true), frameDuration);
         }
         movingAnimations.get(Facing.LEFT).put(Gravity.UP, animation);
+
     }
 
     protected void setSprite(Image i) throws SlickException {
@@ -91,10 +85,6 @@ public abstract class Character extends LevelObject {
         sprites.get(Facing.LEFT).put(Gravity.DOWN, i.getFlippedCopy(true, false));
     }
 
-    public String getUsername(){
-        return Username;
-    }
-    
     public boolean isMoving() {
         return moving;
     }
@@ -118,14 +108,8 @@ public abstract class Character extends LevelObject {
     public void addDamagedone(double damage) {
         this.damagedone = this.damagedone + damage;
     }
-
-    public Facing getFacing() {
-        return facing;
-    }
-
-    public void setFacing(Facing facing) {
-        this.facing = facing;
-    }
+    
+    
 
     public int getPlayerId() {
         return PlayerId;
@@ -173,36 +157,8 @@ public abstract class Character extends LevelObject {
         this.crystal = crystal;
     }
 
-    public boolean getCrystal() {
-        return crystal;
-    }
-
     public boolean isCrystal() {
         return crystal;
-    }
-
-    public void updateCrystal(boolean crystal) {
-        this.crystal = crystal;
-        if (crystal) {
-            try {
-                updatemodel("SpaceceCryst.png");
-            } catch (SlickException ex) {
-                Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-                updatemodel("Spacece.png");
-            } catch (SlickException ex) {
-                Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }
-
-    public void updatemodel(String sheet) throws SlickException {
-        SpriteSheet sp = new SpriteSheet("data/img/characters/player/" + sheet, 36, 36);
-        setSprite(sp.getSprite(1, 0));
-        setMovingAnimation(new Image[]{sp.getSprite(1, 0), sp.getSprite(0, 0), sp.getSprite(2, 0)}, 400);
     }
 
     public void moveLeft(int delta, Gravity gravity) {
@@ -243,9 +199,7 @@ public abstract class Character extends LevelObject {
     }
 
     public void render(float offset_x, float offset_y, Gravity gravity) {
-        
-        this.updateCrystal(this.getCrystal());
-        
+
         //draw a moving animation if we have one and we moved within the last 150 miliseconds
         if (movingAnimations != null && moving) {
             movingAnimations.get(facing).get(gravity).draw(x - 2 - offset_x, y - 2 - offset_y);
@@ -264,14 +218,6 @@ public abstract class Character extends LevelObject {
 
     public void setPoints(int points) {
         this.points = points;
-    }
-
-    public double getDamage() {
-        return damage;
-    }
-
-    public void setDamage(double damage) {
-        this.damage = damage;
     }
 
 }
