@@ -5,7 +5,11 @@
  */
 package gravityfallsportal.ui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -38,16 +42,13 @@ public class CreateGameRoomDialogController implements Initializable {
     private Label lblPaneTitle;
     @FXML
     private Spinner<Double> nmbrMaxPlayer;
-    
-    
+
     private FXMLLobbyController control;
 
     public void setControl(FXMLLobbyController control) {
         this.control = control;
     }
-    
-    
-    
+
     /**
      * Initializes the controller class.
      */
@@ -56,27 +57,26 @@ public class CreateGameRoomDialogController implements Initializable {
     }
 
     @FXML
-    private void createGameRoom(ActionEvent event) throws RemoteException, UnknownHostException {
-        
+    private void createGameRoom(ActionEvent event) throws RemoteException, UnknownHostException, MalformedURLException, IOException {
+
         Stage stage = (Stage) btnOK.getScene().getWindow();
         String name = txtGameRoomName.getText();
-        if(nmbrMaxPlayer.equals(new Double(4)))
-        {
+        if (nmbrMaxPlayer.equals(new Double(4))) {
             System.out.println(4);
         }
-        
+
         int maxPlayers = 4;
-        
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        
+
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
+        String ip = in.readLine(); //you get the IP as a String
+        System.out.println(ip);
         control.addroom(name, maxPlayers, ip);
         //GameRoom gr = new GameRoom(name, maxPlayers);
         //System.out.println(gr.getId());
         stage.close();
-        
-        
-        
-        
+
     }
 
     @FXML

@@ -70,7 +70,7 @@ public class FXMLDocumentController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-        ConnectWithServer();
+        //ConnectWithServer();
     }
 
     public void setConnected() {

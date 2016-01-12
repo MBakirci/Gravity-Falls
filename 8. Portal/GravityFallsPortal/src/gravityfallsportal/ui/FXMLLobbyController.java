@@ -8,8 +8,12 @@ package gravityfallsportal.ui;
 import gameroomm.GameRoomController;
 import fontys.observer.RemotePropertyListener;
 import java.beans.PropertyChangeEvent;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -72,6 +76,19 @@ public class FXMLLobbyController implements Initializable, RemotePropertyListene
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        String hostname;
+        try {
+            URL whatismyip = new URL("http://checkip.amazonaws.com");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+
+            String ip = in.readLine(); //you get the IP as a String
+            System.setProperty("java.rmi.server.hostname", ip);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(FXMLLobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLLobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String ipAddress = "145.93.49.69";
         int portNumber = 1099;
         // Print IP address and port number for registry
@@ -121,7 +138,7 @@ public class FXMLLobbyController implements Initializable, RemotePropertyListene
         if (lobby != null) {
             try {
                 UnicastRemoteObject.exportObject(this, 1101);
-                lobby.addListener(this, "rooms2");
+                lobby.addListener(this, "rooms");
             } catch (Exception e) {
 
             }
@@ -134,7 +151,7 @@ public class FXMLLobbyController implements Initializable, RemotePropertyListene
         try {
             for (IGameRoom g : lobby.getGameRooms()) {
                 System.out.println(g.getRoomname());
-                rooms.add(new GameRoom(g.getRoomname(), g.getRoomMaxPlayers(), "127.0.0.1"));
+                rooms.add(new GameRoom(g.getRoomname(), g.getRoomMaxPlayers(), g.getHost()));
             }
         } catch (RemoteException ex) {
             Logger.getLogger(FXMLLobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,7 +239,7 @@ public class FXMLLobbyController implements Initializable, RemotePropertyListene
         //System.out.println(pce.getNewValue());
         // Update JavaFX Scene Graph
         this.rooms = FXCollections.observableArrayList();
-        
+
         if (pce.getOldValue() != lobby.getGameRooms()) {
             try {
                 for (IGameRoom g : lobby.getGameRooms()) {
