@@ -48,7 +48,7 @@ public class PortalController {
     public PortalController(game.level.Level level, LevelState levelstate) {
         this.level = level;
         this.levelstate = levelstate;
-        serverAddr = "145.93.173.58";
+        serverAddr = "127.0.0.1";
         port = 13000;
         try {
             username = InetAddress.getLocalHost().getHostName();
