@@ -2,10 +2,11 @@ package game.physics;
 
 import game.enums.Gravity;
 import game.level.tile.Tile;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 
-public class AABoundingRect extends BoundingShape {
+public class AABoundingRect extends BoundingShape implements Serializable {
 
     public float x;
     public float y;

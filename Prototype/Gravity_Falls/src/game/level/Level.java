@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.*;
 import game.character.Character;
 import game.character.Player;
+import game.client.PortalController;
 import game.enums.Gravity;
 import game.enums.Guns;
 import game.level.object.Crystal;
@@ -12,6 +13,10 @@ import game.level.object.Objective;
 import game.level.tile.AirTile;
 import game.level.tile.SolidTile;
 import game.level.tile.Tile;
+import game.socketmsg.Message;
+import game.socketmsg.MsgLocations;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Timer;
 
 import org.newdawn.slick.Image;
@@ -34,8 +39,7 @@ public class Level {
     private Image background;
 
     private Gravity gravity;
-
-
+    private PortalController control;
 
     public Level(String level, Player player) throws SlickException {
         map = new TiledMap("data/levels/" + level + ".tmx", "data/img");
@@ -47,7 +51,8 @@ public class Level {
         this.player = player;
         addCharacter(player);
 
-        Player p = new Player(250, 800, 2);
+        Player p = new Player(250, 800, 2, "Walicorp");
+        //Player p = new Player(128, 415, 1, "Wouttotti");
         addCharacter(p);
 
         loadTileMap();
@@ -58,7 +63,35 @@ public class Level {
 
     }
 
+    public void setControl(PortalController control) {
+        this.control = control;
+    }
 
+    public void updatelocation(MsgLocations mloc) {
+        if (mloc != null) {
+            for (Character c : getCharacters()) {
+
+                if (mloc.playerid == c.getPlayerId()) {
+                    c.setX(mloc.x);
+                    c.setY(mloc.y);
+                    c.setCrystal(mloc.crystal);
+                }
+            }
+        } else {
+            System.out.println("shits zero");
+        }
+    }
+    ListIterator<LevelObject> it;
+
+    public void updateobjects(MsgLocations mloc) {
+        it = this.getLevelObjects().listIterator();
+        while (it.hasNext()) {
+            if (it.next().getUniqid().equals(mloc.objectid)) {
+                it.remove();
+            }
+
+        }
+    }
 
     private void loadTileMap() {
         //create an array to hold all the tiles in the map
@@ -133,6 +166,12 @@ public class Level {
                     break;
             }
         }
+    }
+
+    public void respawnCrystal(float x, float y) {
+        //we only have one layer defined, slick2d does not support getting an object layer by name but that does not matter to much for our game
+
+        addLevelCrystal(new Crystal(x, y));
 
     }
 
@@ -165,7 +204,12 @@ public class Level {
     }
 
     public void removeObjects(ArrayList<LevelObject> objects) {
-        levelObjects.removeAll(objects);
+        if (objects.size() > 0) {
+            for (LevelObject e : objects) {
+                System.out.println("ee");
+                control.clientsendqueue(e.getUniqid());
+            }
+        }
     }
 
     public int getXOffset() {

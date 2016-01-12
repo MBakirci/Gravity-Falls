@@ -1,7 +1,11 @@
 package game;
 
+import game.server.gameserver;
 import game.state.LevelState;
 import java.awt.Font;
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -37,8 +41,8 @@ public class Game extends StateBasedGame {
         //create a level state, this state will do the whole logic and rendering for individual levels
         addState(new LevelState("level_0"));
         font = getNewFont("Arial", 16);
-        text = new TextField(gc , font , 150 , 270 , 200 , 35);
-        text = new TextField(gc , font , 150 , 270 , 200 , 35);
+        text = new TextField(gc, font, 150, 270, 200, 35);
+        text = new TextField(gc, font, 150, 270, 200, 35);
         this.enterState(0);
 
     }
@@ -50,7 +54,12 @@ public class Game extends StateBasedGame {
         return (font);
     }
 
+    static public gameserver server;
+
     public static void main(String[] args) throws SlickException {
+        if (available(13000)) {
+            server = new gameserver();
+        }
         AppGameContainer app = new AppGameContainer(new Game());
 
         //set the size of the display to the width and height and fullscreen or not
@@ -60,6 +69,37 @@ public class Game extends StateBasedGame {
         app.setTargetFrameRate(60);
 
         app.start();
+    }
+
+    public static boolean available(int port) {
+        if (port < 12999 || port > 14000) {
+            throw new IllegalArgumentException("Invalid start port: " + port);
+        }
+
+        ServerSocket ss = null;
+        DatagramSocket ds = null;
+        try {
+            ss = new ServerSocket(port);
+            ss.setReuseAddress(true);
+            ds = new DatagramSocket(port);
+            ds.setReuseAddress(true);
+            return true;
+        } catch (IOException e) {
+        } finally {
+            if (ds != null) {
+                ds.close();
+            }
+
+            if (ss != null) {
+                try {
+                    ss.close();
+                } catch (IOException e) {
+                    /* should not be thrown */
+                }
+            }
+        }
+
+        return false;
     }
 
 }

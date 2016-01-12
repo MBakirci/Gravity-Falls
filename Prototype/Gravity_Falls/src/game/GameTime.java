@@ -5,21 +5,10 @@
  */
 package game;
 
-import java.sql.Time;
 import game.character.Character;
 import java.util.ArrayList;
 import java.util.TimerTask;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.newdawn.slick.GameContainer;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -39,7 +28,6 @@ public class GameTime extends TimerTask {
 
     @Override
     public void run() {
-
         if (count <= 0) {
             container.setPaused(true);
             endofgame = true;
@@ -51,7 +39,6 @@ public class GameTime extends TimerTask {
                 }
             }
         }
-
     }
 
     boolean endofgame = false;

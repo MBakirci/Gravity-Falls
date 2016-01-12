@@ -5,9 +5,11 @@
  */
 package game.bullet;
 
+import game.character.Player;
 import game.enums.Gravity;
 import game.level.LevelObject;
 import game.physics.AABoundingRect;
+import java.io.Serializable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -17,7 +19,7 @@ import org.newdawn.slick.geom.Vector2f;
  *
  * @author Richard
  */
-public class Bullet {
+public class Bullet implements Serializable {
 
     private Vector2f pos;
     private Vector2f speed;
@@ -25,11 +27,13 @@ public class Bullet {
     private boolean active = true;
     private static int MAX_LIFETIME = 1000;
     private Vector2f mousel;
+    private int playerid;
 
-    public Bullet(Vector2f pos, Vector2f speed, Vector2f mousel) {
+    public Bullet(Vector2f pos, Vector2f speed, Vector2f mousel, int playerid) {
         this.pos = pos;
         this.speed = speed;
         this.mousel = mousel;
+        this.playerid = playerid;
         
     }
 
@@ -92,6 +96,28 @@ public class Bullet {
         return active;
     }
 
+    public int getPlayerid() {
+        return playerid;
+    }
+
+    public Vector2f getPos() {
+        return pos;
+    }
+
+    public Vector2f getSpeed() {
+        return speed;
+    }
+
+    public int getLived() {
+        return lived;
+    }
+
+    public Vector2f getMousel() {
+        return mousel;
+    }
+
+    
+    
 
 
 }
