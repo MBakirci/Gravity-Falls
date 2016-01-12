@@ -14,9 +14,27 @@ public class User {
     private String UserName;
     private String firstName;
     private String lastName;
-    private String age;
+    private int age;
     private String email;
-
+    private int wins;
+    private int highscore;
+    
+    public int getHighscore(){
+        return highscore;
+    }
+    
+    public void setHighscore(int Highscore){
+        this.highscore = Highscore;
+    }
+    
+    public int getWins(){
+        return wins;
+    }
+    
+    public void setWins(int Wins) {
+        this.wins = Wins;
+    }
+    
     public String getUserName() {
         return UserName;
     }
@@ -41,11 +59,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

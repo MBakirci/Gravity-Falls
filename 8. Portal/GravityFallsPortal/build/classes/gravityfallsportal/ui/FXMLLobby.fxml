@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gravityfallsportal.ui.FXMLLobbyController">
+    <children>
+        <Button id="btnCreate" fx:id="btnCreate" layoutX="248.0" layoutY="361.0" mnemonicParsing="false" onAction="#newRoom" text="Create Room" />
+        <TableView id="tblRooms" fx:id="tblRoom" layoutX="14.0" layoutY="14.0" prefHeight="340.0" prefWidth="575.0">
+            <columns>
+                <TableColumn id="clmName" fx:id="clmName" prefWidth="350.0" text="Name" />
+                <TableColumn id="clmPlayers" fx:id="clmPlayers" prefWidth="75.0" text="maxPlayers" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

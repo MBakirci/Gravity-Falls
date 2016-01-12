@@ -1,4 +1,4 @@
-package gravityfallsportal.Serversocket;
+package gameroom.socket;
 
 import java.io.*;
 import javax.xml.parsers.DocumentBuilder;

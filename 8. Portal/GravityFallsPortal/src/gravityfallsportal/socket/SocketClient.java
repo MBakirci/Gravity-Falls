@@ -19,7 +19,7 @@ public class SocketClient implements Runnable {
 
     public SocketClient(FXMLDocumentController controller) throws IOException {
         ui = controller;
-        this.serverAddr = "127.0.0.1";
+        this.serverAddr = "145.93.64.114";
         this.port = 13000;
         socket = new Socket(InetAddress.getByName(serverAddr), port);
 

@@ -17,10 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import gravityfallsportal.socket.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javax.swing.DefaultListModel;
 
 /**
@@ -47,6 +50,8 @@ public class FXMLDocumentController implements Initializable {
     private User user;
     public String username;
     private boolean connected = false;
+    @FXML
+    private Button btnProfile;
 
     @FXML
     private void handlebtnsend(ActionEvent event) throws IOException {
@@ -96,12 +101,41 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleimvGame1(MouseEvent event) {
         try {
-            Process p = Runtime.getRuntime().exec("gnome-calculator");
-            p.waitFor();
+            startLobby();
             System.out.println("Google Chrome launched!");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void startLobby() throws IOException {
+        Parent root;
+        Stage stage;
+        stage = (Stage) imvGame1.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLLobby.fxml"));
+        root = (Parent) fxmlLoader.load();
+        FXMLLobbyController controller = fxmlLoader.<FXMLLobbyController>getController();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    @FXML
+    private void handleprofilebtn(ActionEvent event) throws IOException {
+
+        Stage stage;
+        Parent root;
+        stage = (Stage) btnProfile.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLProfile.fxml"));
+        root = (Parent) fxmlLoader.load();
+        FXMLProfileController controller = fxmlLoader.<FXMLProfileController>getController();
+        controller.SetUser(user);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        controller.fillText();
+        stage.show();
 
     }
 
