@@ -74,6 +74,9 @@ public class Level {
                 if (mloc.playerid == c.getPlayerId()) {
                     c.setX(mloc.x);
                     c.setY(mloc.y);
+                    c.setGravity(mloc.gravity);
+                    c.setHealth(mloc.health);
+                    c.setFacing(mloc.facing);
                     c.setCrystal(mloc.crystal);
                 }
             }
@@ -89,7 +92,6 @@ public class Level {
             if (it.next().getUniqid().equals(mloc.objectid)) {
                 it.remove();
             }
-
         }
     }
 

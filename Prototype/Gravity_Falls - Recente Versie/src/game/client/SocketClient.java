@@ -36,7 +36,7 @@ public class SocketClient implements Runnable {
                 if (mloc.objectid != null) {
                     ui.removeObjects(mloc);
                 } else if (mloc.bull != null) {
-                    System.out.println("bullet");
+                    //System.out.println("bullet");
                     ui.addBullet(mloc);
                 } else if (mloc.crystalx != 0) {
                     ui.addCrystal(mloc);

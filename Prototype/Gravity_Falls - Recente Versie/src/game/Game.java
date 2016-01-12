@@ -59,6 +59,7 @@ public class Game extends StateBasedGame {
     public static void main(String[] args) throws SlickException {
         if (available(13000)) {
             server = new gameserver();
+            //server = new gameserver();
         }
         AppGameContainer app = new AppGameContainer(new Game());
 

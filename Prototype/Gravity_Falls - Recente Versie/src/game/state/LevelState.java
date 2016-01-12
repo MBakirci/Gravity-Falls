@@ -25,6 +25,8 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.logging.Logger;
@@ -221,7 +223,6 @@ public class LevelState extends BasicGameState {
         Iterator<Bullet> i = bullets.iterator();
         while (i.hasNext()) {
             System.out.println(" ee");
-            System.out.println(" ee");
             i.next().render(container, g);
 
         }
@@ -359,6 +360,12 @@ public class LevelState extends BasicGameState {
                 }
             }
 
+            if (this.player.getPlayerId() != bull.getPlayerid()) {
+                if (e.getPlayerId() == bull.getPlayerid()) {
+                    Bullet bullet = new Bullet(new Vector2f(e.getX() - 2 - level.getXOffset() + 50, e.getY() - 2 - level.getYOffset() + 35), bull.getSpeed(), bull.getMousel(), bull.getPlayerid());
+                    this.bullets.add(bullet);
+                }
+            }
         }
     }
 

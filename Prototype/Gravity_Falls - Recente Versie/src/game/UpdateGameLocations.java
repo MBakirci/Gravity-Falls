@@ -34,7 +34,11 @@ public class UpdateGameLocations extends TimerTask {
 
     @Override
     public void run() {
-       
+        try {
+            sleep(1);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UpdateGameLocations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 
         control.clientsend(player.getGravity(), player.getPlayerId(), player.getHealth(), player.getDamage(), player.getKills(), player.getDamagedone(), player.getX(), player.getY(), player.getFacing(), player.getCrystal());
 
